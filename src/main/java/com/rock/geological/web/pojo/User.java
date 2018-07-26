@@ -1,7 +1,5 @@
 package com.rock.geological.web.pojo;
 
-import cn.afterturn.easypoi.excel.annotation.Excel;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,20 +11,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-    @Excel(name = "姓名", orderNum = "0")
     private String username;
-    @Excel(name = "姓名", orderNum = "0")
     private String salt;
-    @Excel(name = "姓名", orderNum = "0")
     private String password;
-
     private String updateUser;
-
     private Timestamp updateTime;
-
     private String createUser;
-
     private Timestamp createTime;
 
 

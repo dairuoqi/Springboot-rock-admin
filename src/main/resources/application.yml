@@ -18,6 +18,9 @@ spring:
        max-wait-millis: 200
     # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     #connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  resources:
+     #设置静态资源路径，多个以逗号分隔
+    static-locations: classpath:static/,file:static/
 
 
   jpa:

@@ -3,7 +3,6 @@ package com.rock.geological.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
-import com.alibaba.druid.support.spring.stat.BeanTypeAutoProxyCreator;
 import com.alibaba.druid.support.spring.stat.DruidStatInterceptor;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -39,8 +38,8 @@ public class DruidConfiguration {
         // 设置ip黑名单,如果allow与deny共同存在时,deny优先于allow
         servletRegistrationBean.addInitParameter("deny", "192.168.0.1");
         // 设置控制台管理用户
-        servletRegistrationBean.addInitParameter("loginUsername", "admin");
-        servletRegistrationBean.addInitParameter("loginPassword", "123456");
+//        servletRegistrationBean.addInitParameter("loginUsername", "admin");
+//        servletRegistrationBean.addInitParameter("loginPassword", "123456");
         // 是否可以重置数据
         servletRegistrationBean.addInitParameter("resetEnable", "false");
         return servletRegistrationBean;
@@ -75,7 +74,6 @@ public class DruidConfiguration {
     public DruidStatInterceptor druidStatInterceptor() {
         return new DruidStatInterceptor();
     }
-
 
 
 }

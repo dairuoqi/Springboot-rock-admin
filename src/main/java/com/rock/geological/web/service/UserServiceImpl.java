@@ -1,5 +1,6 @@
 package com.rock.geological.web.service;
 
+import com.rock.geological.utils.MD5Util;
 import com.rock.geological.web.dao.UserDao;
 import com.rock.geological.web.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,25 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public User findUserByName(String userName) {
-        return userDao.findUserByName(userName);
+    public void register(User user) {
+        String passwordSalt = MD5Util.encode(user.getPassword());
+        user.setPassword(passwordSalt);
+        userDao.save(user);
     }
 
-    public void save(User user){
-        userDao.save(user);
+    @Override
+    public boolean login(String username, String password) {
+        String passwordSalt = MD5Util.encode(password);
+        int result = userDao.login(username, passwordSalt);
+        if (result == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public User findUserByName(String userName) {
+        return userDao.findUserByName(userName);
     }
 
 
@@ -26,7 +40,7 @@ public class UserServiceImpl implements UserService {
         userDao.deleteById(id);
     }
 
-    public List<User> findAll(){
+    public List<User> findAll() {
         return (List<User>) userDao.findAll();
     }
 }

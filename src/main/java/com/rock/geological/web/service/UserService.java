@@ -6,10 +6,11 @@ import java.util.List;
 
 public interface UserService {
 
+    void register(User user);
+
+    boolean login(String username,String password);
+
     User findUserByName(String userName);
-
-    void save(User user);
-
 
     void delete(Integer id);
 
