@@ -1,4 +1,8 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10Mb
+      max-request-size: 100Mb
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/geological
     username: root
@@ -22,7 +26,6 @@ spring:
      #设置静态资源路径，多个以逗号分隔
     static-locations: classpath:static/,file:static/
 
-
   jpa:
     hibernate:
       # 实体类有更新时，数据库表更新
@@ -30,4 +33,6 @@ spring:
     show-sql: true
     format_sql: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+
 

@@ -1,9 +1,8 @@
 package com.rock.geological.utils;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
+import com.google.common.collect.Maps;
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.File;
@@ -30,7 +29,6 @@ public class Excel2JSONHelper {
     }
 
 
-
     private static boolean fileNameFileter(File file) {
         boolean endsWith = false;
         if (file != null) {
@@ -39,7 +37,6 @@ public class Excel2JSONHelper {
         }
         return endsWith;
     }
-
 
 
     private static Row getHeaderRow(Sheet sheet, int index) {
@@ -58,8 +55,6 @@ public class Excel2JSONHelper {
                 //String类型
                 case Cell.CELL_TYPE_STRING:
                     return cell.getRichStringCellValue().getString();
-
-
                 //number类型
                 case Cell.CELL_TYPE_NUMERIC:
                     if (DateUtil.isCellDateFormatted(cell)) {
@@ -108,6 +103,7 @@ public class Excel2JSONHelper {
 
     /**
      * 读取excel并按照列顺序返回
+     *
      * @param file
      * @param headerIndex
      * @param headType
@@ -127,22 +123,21 @@ public class Excel2JSONHelper {
                 FormulaEvaluator formula = wb.getCreationHelper().createFormulaEvaluator();
                 for (int r = headerIndex + 1; r <= sheet.getLastRowNum(); r++) {
                     //保证JSONArray有序
-                    JSONObject jsonObject = new JSONObject(16,true);
+                    JSONObject jsonObject = new JSONObject(16, true);
                     Row dataRow = sheet.getRow(r);
-                    LinkedHashMap<String, Object> map = new LinkedHashMap<>();
+//                    LinkedHashMap<String, Object> map = Maps.newLinkedHashMap();
                     for (int h = 0; h < dataRow.getLastCellNum(); h++) {
                         //表头为key
                         String key = getHeaderCellValue(headerRow, h, headType);
                         //数据为value
                         Object value = getCellValue(dataRow, h, formula);
                         if (!key.equals("") && !key.equals("null") && key != null) {
-                            map.put(key, value);
-                            jsonObject.put(key,value);
+//                            map.put(key, value);
+                            jsonObject.put(key, value);
                         }
                     }
                     jsonArray.add(jsonObject);
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
